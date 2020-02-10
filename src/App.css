@@ -1,38 +1,63 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Main styles */
+.NinjaDuel {
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
+  padding: 2em;
+  width: 75vw;
+  height: 75vh;
+  background: #EEE;
+}
+
+.Dojo {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Dojo [class*="P"] {
+  width: 75px;
+  height: 75px;
+  transition: 500ms ease-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.P1 {
+  background-color: blue;
+  transform: translateX(-200%)
+}
+
+.P2 {
+  background-color: red;
+  transform: translateX(200%)
+}
+
+.Dojo--idle .P1 {
+  transform: translateX(200%)
+}
+
+.Dojo--idle .P2 {
+  transform: translateX(-200%)
+}
+
+.Dojo--idle [class*="P"].Winner {
+  background-color: green;
+}
+.Dojo--idle [class*="P"].Loser {
+  background-color: gray;
+}
+
+.Counter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Message {
+  text-align: center;
+}
+.Message hr {
+  margin: 2em 0;
+}
+.Message p {
+  margin: 0;
+  font-size: 2em;
 }
