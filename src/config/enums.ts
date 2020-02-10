@@ -1,14 +1,14 @@
 export enum Status { 
+  INITIAL, 
   SET, 
-  IDLE, 
   DRAW, 
   FAUL, 
+  IDLE, 
   FINAL, 
-  INITIAL, 
 }
 
 export enum Keys { 
   START = ' ', 
-  P1DRAW = 'q', 
-  P2DRAW = 'p' 
+  P1 = 'q', 
+  P2 = 'p' 
 }

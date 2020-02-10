@@ -1,77 +1,65 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Status, Keys } from './Enums'
-import { useCounter } from './useCounter'
-import './App.css';
-
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { useCounter } from './hooks/useCounter'
+import { Status, Keys } from './config/enums'
+import Player from './components/Player'
+import Message from './components/Message'
+import './App.css'
 
 const App = () => {
 
-  let [ status, setStatus ] = useState(Status.INITIAL)
-  let [ winner, setWinner ] = useState('')
-  let [ faulty, setFaulty ] = useState('')
-  let timeout = useRef(0)
-  
-  const p1Counter = useCounter() 
-  const p2Counter = useCounter() 
-  
-  const hasWinner = (): boolean => status === Status.IDLE || status === Status.FINAL
-  
-  const isWinner = (key: string) : boolean => winner === key
-  
-  const isFaulty = (key: string) : boolean => faulty === key
+  const timeout = useRef(0)
+  const p1 = useCounter()
+  const p2 = useCounter()
 
-  const resetGame = useCallback((): void => {
+  let [winner, setWinner] = useState('')
+  let [faulty, setFaulty] = useState('')
+  let [status, setStatus] = useState(Status.INITIAL)
+  
+
+  const reset = useCallback((): void => {
     setWinner('')
     setFaulty('')
     setStatus(Status.SET)
+    p1.reset(); p2.reset()
     timeout.current = window.setTimeout(() => {
       setStatus(Status.DRAW)
-      p1Counter.start()
-      p2Counter.start()
-      // timeout.current = window.setTimeout(() => {
-      //   document.dispatchEvent(new KeyboardEvent('keypress', { key: 'p'}));
-      // }, 2000)
+      p1.start(); p2.start()
     }, 5000)
-  }, [p1Counter, p2Counter])
-  
+  }, [p1, p2])
+
   const keypress = useCallback((event: KeyboardEvent): void => {
     const { key } = event
+
     if (key === Keys.START && [Status.INITIAL, Status.FINAL].includes(status)) {
       clearTimeout(timeout.current)
-      resetGame()
+      reset()
     }
-    if (key === Keys.P1DRAW ||  key === Keys.P2DRAW) {
-      
-      if (key === Keys.P1DRAW) {
-        p1Counter.stop()
-      }
-      
-      if (key === Keys.P2DRAW) {
-        p2Counter.stop()
-      }
-      
+    
+    if (key === Keys.P1) p1.stop()
+    
+    if (key === Keys.P2) p2.stop()
+
+    if (key === Keys.P1 || key === Keys.P2) {
+
       if (status === Status.SET) {
-        setStatus(Status.FAUL)
         setFaulty(key)
+        setStatus(Status.FAUL)
         clearTimeout(timeout.current)
-        timeout.current = window.setTimeout(() => {
-          resetGame()
-        }, 2000)
-        return
+        timeout.current = window.setTimeout(() => reset(), 2000)
       }
+
       if (status === Status.DRAW) {
         setStatus(Status.IDLE)
         timeout.current = window.setTimeout(() => {
-          setStatus(Status.FINAL)
           setWinner(key)
-          setFaulty((key === Keys.P1DRAW) ? Keys.P2DRAW : Keys.P1DRAW)
+          setStatus(Status.FINAL)
+          p1.stop(); p2.stop()
         }, 2000)
-        return
       }
     }
-    
-  }, [status, timeout, resetGame, p1Counter, p2Counter])
-  
+
+  }, [status, timeout, reset, p1, p2])
+
   useEffect(() => {
     document.addEventListener('keypress', keypress)
     return () => {
@@ -80,35 +68,32 @@ const App = () => {
   }, [keypress])
 
   return (
-    <div className="NinjaDuel">
-      <div className={`Dojo ${ hasWinner() ? 'Dojo--idle' : '' }`}>
-        {faulty}
-        <div className={`P1 
-          ${isWinner(Keys.P1DRAW) ? 'Winner' : '' }
-          ${isFaulty(Keys.P1DRAW) ? 'Loser' : '' }
-        `}></div>
-        <div className={`P2 
-          ${isWinner(Keys.P2DRAW) ? 'Winner' : '' }
-          ${isFaulty(Keys.P2DRAW) ? 'Loser' : '' }
-        `}></div>
+    <div className="App">
+      <div className={`Dojo 
+        ${[Status.IDLE, Status.FINAL].includes(status) ? 'Dojo:set' : ''}
+      `}>
+        <Player
+          name="P1"
+          winner={winner === Keys.P1}
+          faulty={faulty === Keys.P1}
+          // active={status === Status.FINAL}
+          counter={winner ? p1.counter : 0}
+        />
+        <Player
+          name="P2"
+          winner={winner === Keys.P2}
+          faulty={faulty === Keys.P2}
+          // active={status === Status.FINAL}
+          counter={winner ? p2.counter : 0}
+        />
       </div>
-      <div className="Counter">
-        <span>{ `P1: ${p1Counter.counter}` }</span>
-        <span>{ `P2: ${p2Counter.counter}` }</span>
-      </div>
-      <div className="Message">
-        <p>
-          <hr></hr> 
-          { (status === Status.INITIAL) ? 'Press spacebar to start' : '' }
-          { (status === Status.SET) ? 'Get Ready...' : '' }
-          { (status === Status.DRAW) ? 'Draw!' : '' }
-          { (status === Status.IDLE) ? '~~Mistery~~' : '' }
-          { (status === Status.FAUL) ? `The faul is on ${isFaulty(Keys.P1DRAW) ? 'Player 1' : 'Player 2' }` : '' }
-          { (status === Status.FINAL) ? `The winner is ${isWinner(Keys.P1DRAW) ? 'Player 1' : 'Player 2' }` : '' }
-        </p>
-      </div>
+      <Message
+        status={status}
+        winner={winner}
+        faulty={faulty}
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -6,25 +6,31 @@ export function useCounter() {
   const interval = useRef(0)
 
   function update(start: number) {
-    setCounter(new Date().getTime() - start)
+    const now = new Date().getTime()
+    setCounter(now - start)
   }
 
+  function start() {
+    reset()
+    const start = new Date().getTime()
+    interval.current = window.setInterval(() => { 
+      update(start)
+    } , 1)
+  }
+  
   function stop() {
     clearInterval(interval.current)
   }
   
-  function start() {
+  function reset() {
+    setCounter(0)
     stop()
-    update(0)
-    const moment = new Date().getTime()
-    interval.current = window.setInterval(() => { 
-      update(moment)
-    } , 1)
   }
   
   return {
     counter,
     start,
+    reset,
     stop
   }
 }

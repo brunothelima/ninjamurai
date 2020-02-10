@@ -1,5 +1,4 @@
-/* Main styles */
-.NinjaDuel {
+.App {
   display: flex;
   flex-flow: column;
   padding: 2em;
@@ -14,50 +13,9 @@
   align-items: center;
   justify-content: center;
 }
-
-.Dojo [class*="P"] {
-  width: 75px;
-  height: 75px;
-  transition: 500ms ease-out;
-}
-
-.P1 {
-  background-color: blue;
-  transform: translateX(-200%)
-}
-
-.P2 {
-  background-color: red;
+.Dojo\:set .Player:first-child {
   transform: translateX(200%)
 }
-
-.Dojo--idle .P1 {
-  transform: translateX(200%)
-}
-
-.Dojo--idle .P2 {
+.Dojo\:set .Player:last-child {
   transform: translateX(-200%)
-}
-
-.Dojo--idle [class*="P"].Winner {
-  background-color: green;
-}
-.Dojo--idle [class*="P"].Loser {
-  background-color: gray;
-}
-
-.Counter {
-  display: flex;
-  justify-content: space-around;
-}
-
-.Message {
-  text-align: center;
-}
-.Message hr {
-  margin: 2em 0;
-}
-.Message p {
-  margin: 0;
-  font-size: 2em;
 }

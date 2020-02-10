@@ -1,0 +1,10 @@
+.Message {
+  text-align: center;
+}
+.Message hr {
+  margin: 2em 0;
+}
+.Message p {
+  margin: 0;
+  font-size: 2em;
+}

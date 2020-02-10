@@ -1,0 +1,23 @@
+.Player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  color: white;
+  transition: 250ms ease-out;
+}
+.Player:first-child {
+  background-color: blue;
+  transform: translateX(-200%)
+}
+.Player:last-child {
+  background-color: red;
+  transform: translateX(200%)
+}
+.Player\:winner {
+  background-color: green !important;
+}
+.Player\:faulty {
+  background-color: gray !important;
+}
