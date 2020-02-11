@@ -1,24 +1,22 @@
 import React from 'react';
 import './Player.css';
 
-interface Props {
+interface PlayerProps {
   name: string,
-  counter: number,
+  result: number,
   faulty: boolean,
   winner: boolean
+  failed: boolean
 }
 
-const Player = ({ name, counter, faulty, winner }: Props) => {
-
+const Player = ({ name, result, faulty, winner, failed }: PlayerProps) => {
   return (
     <div className={`Player 
       ${ (faulty) ? 'Player:faulty' : '' } 
-      ${ (winner) ? 'Player:winner' : '' }` }>
-      { 
-        counter && (faulty || winner) 
-          ? `${name}: ${counter}` 
-          : '' 
-      }
+      ${ (winner) ? 'Player:winner' : '' }
+      ${ (failed) ? 'Player:failed' : '' }
+    `}>
+      { result ? `${name}: ${result}ms` : '' }
     </div>
   )
 }

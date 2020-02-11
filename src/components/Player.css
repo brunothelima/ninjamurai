@@ -5,7 +5,7 @@
   width: 100px;
   height: 100px;
   color: white;
-  transition: 250ms ease-out;
+  transition: 500ms cubic-bezier(0,1.01,.49,1.01);
 }
 .Player:first-child {
   background-color: blue;
@@ -15,9 +15,12 @@
   background-color: red;
   transform: translateX(200%)
 }
+.Player\:faulty {
+  background-color: gray !important;
+}
 .Player\:winner {
   background-color: green !important;
 }
-.Player\:faulty {
-  background-color: gray !important;
+.Player\:failed {
+  background-color: black !important;
 }

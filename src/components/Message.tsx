@@ -2,13 +2,13 @@ import React from 'react';
 import { Status, Keys } from '../config/enums'
 import './Message.css'
 
-interface Props {
+interface MessageProps {
   status: number,
   winner: string,
   faulty: string,
 }
 
-const Message = ({ status, winner, faulty }: Props) => {
+const Message = ({ status, winner, faulty }: MessageProps) => {
   return (
     <div className="Message">
       { (status === Status.INITIAL) ? 'Press spacebar to start' : '' }
