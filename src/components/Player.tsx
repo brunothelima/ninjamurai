@@ -1,23 +1,20 @@
 import React from 'react';
+import PlayerType from '../config/types';
 import './Player.css';
 
-interface PlayerProps {
-  name: string,
-  result: number,
-  faulty: boolean,
-  winner: boolean
-  failed: boolean
-}
-
-const Player = ({ name, result, faulty, winner, failed }: PlayerProps) => {
+const Player = ( props :PlayerType) => {
   return (
     <div className={`Player 
-      ${ (faulty) ? 'Player:faulty' : '' } 
-      ${ (winner) ? 'Player:winner' : '' }
-      ${ (failed) ? 'Player:failed' : '' }
-    `}>
-      { result ? `${name}: ${result}ms` : '' }
-    </div>
+      ${ (props.state === 'faulty') ? 'Player:faulty' : '' } 
+      ${ (props.state === 'winner') ? 'Player:winner' : '' }
+      ${ (props.state === 'failed') ? 'Player:failed' : '' }
+    `}>{ 
+      <img src={require(`../assets/${props.name}.svg`)} alt={props.name} />
+      // !! props.state && 
+      // ! ['faulty'].includes(props.state) 
+      //   ? `${props.name}: ${props.counter}ms` 
+      //   : '' 
+    }</div>
   )
 }
 

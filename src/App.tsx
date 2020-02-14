@@ -1,29 +1,23 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { useCounter } from './hooks/useCounter'
-import { Status, Keys } from './config/enums'
+import { usePlayer } from './hooks/usePlayer'
+import { Status } from './config/enums'
 import Player from './components/Player'
 import Message from './components/Message'
 import './App.css'
 
 const App = () => {
   const timeout = useRef(0)
-  const p1 = useCounter()
-  const p2 = useCounter()
-  let [faulty, setFaulty] = useState('')
-  let [winner, setWinner] = useState('')
-  let [failed, setFailed] = useState('')
+  const p1 = usePlayer('P1', 'q')
+  const p2 = usePlayer('P2', 'p')
+  
   let [status, setStatus] = useState(Status.INITIAL)
 
-  const reset = useCallback((): void => {
-    p1.reset() 
-    p2.reset()
-    setFaulty('')
-    setWinner('')
-    setFailed('')
+  const resetGame = useCallback((): void => {
+    p1.reset(); p1.setState('') 
+    p2.reset(); p2.setState('')
     setStatus(Status.SET)
     timeout.current = window.setTimeout(() => {
-      p1.start()
-      p2.start()
+      p1.start(); p2.start()
       setStatus(Status.DRAW)
     }, 5000)
   }, [p1, p2])
@@ -32,39 +26,49 @@ const App = () => {
     const { key } = event
 
     if ([Status.INITIAL, Status.FINAL].includes(status)) {
-      if (key === Keys.START) {
+      if (key === ' ') {
         clearTimeout(timeout.current)
-        reset()
+        resetGame()
       }
     }
   
-    if (key === Keys.P1 || key === Keys.P2) {
+    if ([p1.key, p2.key].includes(key)) {
       
-      if (key === Keys.P1) p1.stop()
+      if (key === p1.key) p1.stop()
       
-      if (key === Keys.P2) p2.stop()
-
+      if (key === p2.key) p2.stop()
+      
       if (status === Status.SET) {
-        setFaulty(key)
         setStatus(Status.FAUL)
+
+        if (key === p1.key) p2.setState('failed')
+        
+        if (key === p1.key) p2.setState('failed')
+      
         clearTimeout(timeout.current)
         timeout.current = window.setTimeout(() => {
-          reset()
+          resetGame()
         }, 2000)
       }
 
       if (status === Status.DRAW) {
         setStatus(Status.IDLE)
+        
+        clearTimeout(timeout.current)
         timeout.current = window.setTimeout(() => {
-          p1.stop() 
-          p2.stop()
-          setWinner(key)
           setStatus(Status.FINAL)
-          setFailed((key === Keys.P1) ? Keys.P2 : Keys.P1)
+          if (key === p1.key) {
+            p1.setState('winner')
+            p2.setState('failed')
+          } 
+          if (key === p2.key) {
+            p2.setState('winner')
+            p1.setState('failed')
+          }
         }, 2000)
       }
     }
-  }, [status, timeout, reset, p1, p2])
+  }, [status, timeout, resetGame, p1, p2])
 
   useEffect(() => {
     document.addEventListener('keypress', keypress)
@@ -76,26 +80,10 @@ const App = () => {
   return (
     <div className="App">
       <div className={`Dojo ${[Status.IDLE, Status.FINAL].includes(status) ? 'Dojo:set' : ''}`}>
-        <Player
-          name="P1"
-          winner={winner === Keys.P1}
-          faulty={faulty === Keys.P1}
-          failed={failed === Keys.P1}
-          result={status === Status.FINAL ? p1.counter : 0 }
-        />
-        <Player
-          name="P2"
-          winner={winner === Keys.P2}
-          faulty={faulty === Keys.P2}
-          failed={failed === Keys.P2}
-          result={status === Status.FINAL ? p2.counter : 0 }
-        />
+        <Player {...p1} status={status} />
+        <Player {...p2} status={status} />
       </div>
-      <Message
-        status={status}
-        winner={winner}
-        faulty={faulty}
-      />
+      <Message status={status}/>
     </div>
   )
 }
