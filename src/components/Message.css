@@ -1,5 +1,6 @@
 .Message {
   text-align: center;
+  height: 30px;
 }
 .Message hr {
   margin: 2em 0;

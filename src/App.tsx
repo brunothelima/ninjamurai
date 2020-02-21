@@ -1,17 +1,16 @@
 import React, { useReducer } from 'react'
 import Dojo from './Dojo'
-import { GameContext, GameReducer } from './config/store.js'
+import { GameContext, GameReducer, initialState } from './config/store'
 import Message from './components/Message'
-
 
 import './App.css'
 
 const App = () => {
   
-  let [state, dispatch] = useReducer(GameReducer, { status: 0 })
-
+  let [state, dispatch] = useReducer(GameReducer, initialState)
+  
   return (
-    <GameContext.Provider value={{state, dispatch}}>
+    <GameContext.Provider value={{ state, dispatch }}>
       <div className="App">
         <Dojo />
       </div>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Status } from '../config/enums'
 import PlayerType from '../config/types';
-import { GameContext } from '../config/store.js'
+import { GameContext } from '../config/store'
 import './Player.css';
 
 const Player = ( props :PlayerType) => {

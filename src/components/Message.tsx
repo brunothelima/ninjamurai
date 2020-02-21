@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Status } from '../config/enums'
-import { GameContext } from '../config/store.js'
+import { GameContext } from '../config/store'
 import './Message.css'
 
 const Message = () => {
