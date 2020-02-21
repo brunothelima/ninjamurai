@@ -19,13 +19,14 @@ const Player = ( props :PlayerType) => {
       ${ (props.state === 'faulty') ? 'Player:faulty' : '' } 
       ${ (props.state === 'winner') ? 'Player:winner' : '' }
       ${ (props.state === 'failed') ? 'Player:failed' : '' }
-    `}>{ 
-      <img src={require(`../assets/${props.name}.svg`)} alt={props.name} />
-      // !! props.state && 
-      // ! ['faulty'].includes(props.state) 
-      //   ? `${props.name}: ${props.counter}ms` 
-      //   : '' 
-    }</div>
+      `}>
+        <img src={require(`../assets/${props.name}_${props.state}.svg`)} alt={props.name} />
+        { 
+          state.status === Status.FINAL
+          ? `${props.name}: ${props.counter}ms` 
+          : '' 
+        }
+    </div>    
   )
 }
 

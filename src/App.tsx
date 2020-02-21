@@ -1,7 +1,8 @@
 import React, { useReducer } from 'react'
 import Dojo from './Dojo'
-
 import { GameContext, GameReducer } from './config/store.js'
+import Message from './components/Message'
+
 
 import './App.css'
 
@@ -14,6 +15,7 @@ const App = () => {
       <div className="App">
         <Dojo />
       </div>
+      <Message />
     </GameContext.Provider>
   )
 }

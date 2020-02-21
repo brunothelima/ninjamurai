@@ -4,8 +4,11 @@
   justify-content: center;
   color: white;
   transition: 500ms cubic-bezier(0,1.01,.49,1.01);
+  width: 150px;
+  color: black;
 }
-.Player img {
+.Player img,
+.Player svg {
   display: block;
   /* height: 100px; */
 }
