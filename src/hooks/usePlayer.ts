@@ -24,6 +24,7 @@ export function usePlayer(name: string, key: string) {
   }
   
   function reset() {
+    setState('')
     setCounter(0)
     stop()
   }

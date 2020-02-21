@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Status } from '../config/enums'
+import { GameContext } from '../config/store.js'
 import './Message.css'
 
-interface MessageProps {
-  status: number,
-}
+const Message = () => {
+  
+  const { state } = useContext(GameContext)
 
-const Message = ({ status }: MessageProps) => {
   return (
     <div className="Message">
-      { (status === Status.INITIAL) ? 'Press spacebar to start' : '' }
-      { (status === Status.SET) ? 'Get Ready...' : '' }
-      { (status === Status.DRAW) ? 'Draw!' : '' }
-      { (status === Status.IDLE) ? '~~Mistery~~' : '' }
+      { (state.status === Status.INITIAL) ? 'Press spacebar to start' : '' }
+      { (state.status === Status.SET) ? 'Get Ready...' : '' }
+      { (state.status === Status.DRAW) ? 'Draw!' : '' }
+      { (state.status === Status.IDLE) ? '~~Mistery~~' : '' }
     </div>
   )
 }

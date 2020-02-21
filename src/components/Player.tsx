@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Status } from '../config/enums'
 import PlayerType from '../config/types';
+import { GameContext } from '../config/store.js'
 import './Player.css';
 
 const Player = ( props :PlayerType) => {
+  
+  const { state } = useContext(GameContext)
+
+  useEffect(() => {
+    if (state.status === Status.IDLE) {
+      props.setState('moving')
+    }
+  }, [props, state])
+  
   return (
     <div className={`Player 
       ${ (props.state === 'faulty') ? 'Player:faulty' : '' } 
