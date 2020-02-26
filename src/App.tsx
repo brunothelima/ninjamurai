@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import Dojo from './Dojo'
+import Game from './components/Game'
 import { GameContext, GameReducer, initialState } from './config/store'
 import Message from './components/Message'
 
@@ -12,7 +12,7 @@ const App = () => {
   return (
     <GameContext.Provider value={{ state, dispatch }}>
       <div className="App">
-        <Dojo />
+        <Game />
       </div>
       <Message />
     </GameContext.Provider>

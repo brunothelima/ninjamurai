@@ -8,6 +8,8 @@ const Player = ( props :PlayerType) => {
   
   const { state } = useContext(GameContext)
 
+  const result = () => `${props.name}: ${props.counter}ms`
+
   useEffect(() => {
     if (state.status === Status.IDLE) {
       props.setState('moving')
@@ -19,13 +21,12 @@ const Player = ( props :PlayerType) => {
       ${ (props.state === 'faulty') ? 'Player:faulty' : '' } 
       ${ (props.state === 'winner') ? 'Player:winner' : '' }
       ${ (props.state === 'failed') ? 'Player:failed' : '' }
+      ${ [Status.IDLE, Status.FINAL].includes(state.status) ? 'Player:moving' : ''}
       `}>
         <img src={require(`../assets/${props.name}_${props.state}.svg`)} alt={props.name} />
-        { 
-          state.status === Status.FINAL
-          ? `${props.name}: ${props.counter}ms` 
-          : '' 
-        }
+        <div className="Player__result">
+          { [Status.FINAL, Status.DRAW].includes(state.status) ? result() : '' }
+        </div>
     </div>    
   )
 }

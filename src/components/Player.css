@@ -2,18 +2,29 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  color: white;
-  transition: 500ms cubic-bezier(1,0,0,1);
   width: 150px;
   color: black;
+  transition: 500ms cubic-bezier(1,0,0,1);
 }
 .Player img,
 .Player svg {
   display: block;
 }
 .Player:first-child {
-  transform: translateX(-200%)
+  transform: translateX(-150%)
+}
+.Player\:moving:first-child {
+  transform: translateX(150%)
 }
 .Player:last-child {
-  transform: translateX(200%)
+  transform: translateX(150%)
+}
+.Player\:moving:last-child {
+  transform: translateX(-150%)
+}
+
+.Player__result  {
+  position: absolute;
+  top: 0;
+  transform: translateY(calc(-100% - 40px))
 }

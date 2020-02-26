@@ -6,9 +6,3 @@ export enum Status {
   IDLE, 
   FINAL, 
 }
-
-export enum Keys { 
-  START = ' ', 
-  P1 = 'q', 
-  P2 = 'p' 
-}

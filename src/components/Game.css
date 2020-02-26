@@ -1,12 +1,13 @@
-.Dojo {
+.Game {
   flex: 1;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  height: 200px;
 }
-.Dojo\:set .Player:first-child {
+/* .Game\:set .Player:first-child {
   transform: translateX(200%)
 }
-.Dojo\:set .Player:last-child {
+.Game\:set .Player:last-child {
   transform: translateX(-200%)
-}
+} */
