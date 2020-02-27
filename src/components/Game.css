@@ -4,6 +4,7 @@
   align-items: flex-end;
   justify-content: center;
   height: 200px;
+  padding-bottom: 10vh;
 }
 /* .Game\:set .Player:first-child {
   transform: translateX(200%)
