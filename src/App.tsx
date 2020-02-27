@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import Game from './components/Game'
 import { GameContext, GameReducer, initialState } from './config/store'
-import Message from './components/Message'
+import Menu from './components/Menu'
 
 const App = () => {
   
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <GameContext.Provider value={{ state, dispatch }}>
       <Game />
-      <Message />
+      <Menu />
     </GameContext.Provider>
   )
 }

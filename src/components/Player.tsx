@@ -8,7 +8,7 @@ const Player = ( props :PlayerType) => {
   
   const { state } = useContext(GameContext)
 
-  const result = () => `${props.name}: ${props.counter}ms`
+  const result = () => ` ${props.counter}ms`
 
   useEffect(() => {
     if (state.status === Status.IDLE) {
@@ -25,6 +25,7 @@ const Player = ( props :PlayerType) => {
       `}>
         <img src={require(`../assets/${props.name}_${props.state}.svg`)} alt={props.name} />
         <div className="Player__result">
+          { props.name }
           { [Status.FINAL, Status.DRAW].includes(state.status) ? result() : '' }
         </div>
     </div>    

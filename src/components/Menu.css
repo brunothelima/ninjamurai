@@ -1,0 +1,35 @@
+.Menu {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  bottom: 8vh;
+  color: white;
+}
+
+.Menu__status {
+  font-size: 26px;
+  color: #FFEDE1;
+  margin-bottom: 20px;
+}
+
+.Menu__buttons button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+  height: 50px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 12px;
+  background: url('../assets/btn-border.svg') center;
+  background-size: 125px 50px;
+  color: #FFEDE1;
+  font-size: 20px;
+  font-family: 'Shark Made In Japan';
+  outline: none;
+  cursor: pointer;
+}
+
+.Menu__buttons button:hover {
+  background-color: #0C0C0C;
+}

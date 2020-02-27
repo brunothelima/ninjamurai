@@ -1,6 +1,7 @@
 /* Resets */
 * {
   box-sizing: border-box;
+  appearance: none;
 }
 html, body, #root {
   height: 100%;
