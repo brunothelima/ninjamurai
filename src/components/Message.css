@@ -1,11 +1,10 @@
 .Message {
+  position: absolute;
+  z-index: 2;
   text-align: center;
+  top: 0;
+  bottom: 8vh;
+  margin: auto;
   height: 30px;
-}
-.Message hr {
-  margin: 2em 0;
-}
-.Message p {
-  margin: 0;
-  font-size: 2em;
+  color: white;
 }

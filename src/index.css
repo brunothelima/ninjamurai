@@ -2,11 +2,18 @@
 * {
   box-sizing: border-box;
 }
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+html, body, #root {
+  height: 100%;
+  width: 100%;
   margin: 0;
+}
+#root {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center; 
+  padding-bottom: 5vh;
+  background: #0C0C0C url('./assets/bg.jpg') center no-repeat;
+  background-size: auto 100%;
+  font-family: 'Shark Made In Japan';
 }

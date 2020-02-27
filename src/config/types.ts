@@ -1,18 +1,18 @@
-export interface PlayerCounterFunction {
+export interface PlayerCounterFunctionType {
   (): void
 }
 
-export interface PlayerSetStateFunction {
+export interface PlayerSetStateFunctionType {
   (state: string): void
 }
 
-export default interface Player {
+export default interface PlayerType {
   key: string,
   name: string,
   state: string,
-  setState: PlayerSetStateFunction,
+  setState: PlayerSetStateFunctionType,
   counter: number
-  start: PlayerCounterFunction,
-  reset: PlayerCounterFunction,
-  stop: PlayerCounterFunction,
+  start: PlayerCounterFunctionType,
+  reset: PlayerCounterFunctionType,
+  stop: PlayerCounterFunctionType,
 }

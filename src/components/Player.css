@@ -3,6 +3,7 @@
   align-items: flex-end;
   justify-content: center;
   width: 150px;
+  height: 130px;
   color: black;
   transition: 500ms cubic-bezier(1,0,0,1);
 }
@@ -11,20 +12,20 @@
   display: block;
 }
 .Player:first-child {
-  transform: translateX(-150%)
+  transform: translateX(-15vh)
 }
 .Player\:moving:first-child {
-  transform: translateX(150%)
+  transform: translateX(calc(15vh + 150px))
 }
 .Player:last-child {
-  transform: translateX(150%)
+  transform: translateX(15vh)
 }
 .Player\:moving:last-child {
-  transform: translateX(-150%)
+  transform: translateX(calc(-15vh - 150px))
 }
-
 .Player__result  {
   position: absolute;
   top: 0;
-  transform: translateY(calc(-100% - 40px))
+  transform: translateY(calc(-100% - 40px));
+  color: white;
 }
